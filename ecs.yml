@@ -43,7 +43,7 @@ Resources:
       ExecutionRoleArn: !Ref ExecutionRole
       ContainerDefinitions:
         - Name: hireapro-admin-service-container
-          Image: jonesjalapatgithub/hireapro-admin-service:latest
+          Image: jonesjalapatgithub/hireapro-admin-service
           PortMappings:
             - ContainerPort: 8080
           LogConfiguration:
