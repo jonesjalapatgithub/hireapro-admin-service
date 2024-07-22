@@ -8,6 +8,7 @@ pipeline {
         }
         stage('Test') {
             steps {
+                sh "chmod +x -R ${env.WORKSPACE}"
                 sh 'mvn test'
             }
             post {
