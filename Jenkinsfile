@@ -4,6 +4,7 @@ pipeline {
         IMAGE_REPO = "jonesjalapatgithub"
         NAME = "hireapro-admin-service"
         VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
+        registryCredential = 'dockerhub_id'
     }
     stages {
         stage('Build') { 
@@ -26,6 +27,7 @@ pipeline {
         stage('Docker Push') { 
             steps {
             echo " Branch ${env.BRANCH_NAME}"
+            sh "docker login -u=${DOCKER_USERNAME} -p=${DOCKER_PASSWORD}"
             sh "docker build -t ${NAME} ."
             sh "docker tag ${NAME}:latest ${IMAGE_REPO}/${NAME}:${VERSION}"
             sh "docker push ${IMAGE_REPO}/${NAME}:${VERSION}"
