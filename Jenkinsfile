@@ -9,7 +9,6 @@ pipeline {
         stage('Build') { 
             steps {
                 echo "Running ${VERSION} on ${env.JENKINS_URL}"
-                git branch: "${BRANCH}"
                 sh 'mvn -B -DskipTests clean package' 
             }
         }
