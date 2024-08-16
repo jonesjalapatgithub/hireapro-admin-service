@@ -7,6 +7,20 @@ pipeline {
         registryCredential = 'dockerhub_id'
     }
     stages {
+                       stage('Setup parameters') {
+            steps {
+                script { 
+                    properties([
+                        parameters([
+                            string(
+                                defaultValue: '', 
+                                name: 'stack', 
+                            )
+                        ])
+                    ])
+                }
+            }
+        }
         stage('Build') { 
             steps {
                 echo "Running ${VERSION} on ${env.JENKINS_URL}"
@@ -35,7 +49,7 @@ pipeline {
         }
         stage('Deploy') { 
             steps {
-                sh "aws cloudformation create-stack --stack-name hireapro-admin-service-deployment --template-body file://./ecs.yml --capabilities CAPABILITY_NAMED_IAM --parameters 'ParameterKey=SubnetID,ParameterValue=subnet-04d9cd6ca1efe7c8e'"
+                sh "aws cloudformation create-stack --capabilities CAPABILITY_NAMED_IAM --stack-name ${params.stack} --template-body file://./ecs.yml"
             }
         }
     }
