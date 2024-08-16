@@ -7,20 +7,6 @@ pipeline {
         registryCredential = 'dockerhub_id'
     }
     stages {
-                       stage('Setup parameters') {
-            steps {
-                script { 
-                    properties([
-                        parameters([
-                            string(
-                                defaultValue: '', 
-                                name: 'stack', 
-                            )
-                        ])
-                    ])
-                }
-            }
-        }
         stage('Build') { 
             steps {
                 echo "Running ${VERSION} on ${env.JENKINS_URL}"
@@ -49,7 +35,7 @@ pipeline {
         }
         stage('Deploy') { 
             steps {
-                sh "aws cloudformation create-stack --capabilities CAPABILITY_NAMED_IAM --stack-name ${params.stack} --template-body file://./ecs.yml"
+                sh "aws cloudformation create-stack --capabilities CAPABILITY_NAMED_IAM --stack-name hireapro-admin --template-body file://./ecs.yml"
             }
         }
     }
