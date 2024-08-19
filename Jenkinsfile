@@ -6,7 +6,7 @@ pipeline {
         VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
         registryCredential = 'dockerhub_id'
     }
-    // stages {
+    stages {
     //     stage('Build') { 
     //         steps {
     //             echo "Running ${VERSION} on ${env.JENKINS_URL}"
